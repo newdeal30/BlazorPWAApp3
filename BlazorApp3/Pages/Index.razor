@@ -1,0 +1,23 @@
+﻿@page "/"
+@using System.Net.Http
+@inject HttpClient Http
+<h1>Hello, world!</h1>
+
+		Welcome to your new app.
+<button @onclick="OnButtonClickAsync">Test</button>
+<br/>
+@foreach (var aItem in list) {
+	<p>@aItem</p>
+}
+
+
+@code {
+	private List<string> list = new List<string>();
+
+	private async Task OnButtonClickAsync(MouseEventArgs args) {
+		
+		string msg = await Http.GetStringAsync("api/Test");
+		list.Add(msg);
+		StateHasChanged();
+	}
+}
